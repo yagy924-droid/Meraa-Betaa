@@ -13,11 +13,24 @@ body {
     overflow: hidden;
 }
 
-/* GLASS CONTAINER */
+/* SCREEN SHAKE */
+@keyframes shake {
+    0% { transform: translate(0,0); }
+    20% { transform: translate(-10px, 10px); }
+    40% { transform: translate(10px, -10px); }
+    60% { transform: translate(-10px, 5px); }
+    80% { transform: translate(10px, -5px); }
+    100% { transform: translate(0,0); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+/* GLASS */
 .container {
     background: rgba(255,255,255,0.25);
     backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
     padding: 40px;
     border-radius: 20px;
     max-width: 950px;
@@ -88,16 +101,8 @@ button {
     cursor: pointer;
 }
 
-.yes {
-    background: #ff4d6d;
-    color: white;
-}
-
-.no {
-    background: gray;
-    color: white;
-    position: absolute;
-}
+.yes { background: #ff4d6d; color: white; }
+.no { background: gray; color: white; position: absolute; }
 
 img {
     width: 220px;
@@ -105,14 +110,8 @@ img {
     margin: 10px;
 }
 
-.gift-box {
-    font-size: 80px;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
+.gift-box { font-size: 80px; cursor: pointer; }
+.hidden { display: none; }
 
 </style>
 </head>
@@ -123,96 +122,59 @@ img {
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PAGE 1 -->
 <div class="page active" id="page1">
-    <div class="container">
-        <h1>For My Princess ❤️</h1>
-        <p class="typing" id="text1"></p>
-        <button class="yes" onclick="nextPage(2)">Next ❤️</button>
-    </div>
+<div class="container">
+<h1>For My Princess ❤️</h1>
+<p class="typing" id="text1"></p>
+<button class="yes" onclick="nextPage(2)">Next ❤️</button>
+</div>
 </div>
 
-<!-- PAGE 2 -->
 <div class="page" id="page2">
-    <div class="container">
-        <h1>Mera chotu sa cutu sa Betaa ❤️</h1>
-        <p class="typing" id="text2"></p>
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-        <button class="yes" onclick="nextPage(3)">Next ❤️</button>
-    </div>
+<div class="container">
+<h1>Mera chotu sa cutu sa Betaa ❤️</h1>
+<p class="typing" id="text2"></p>
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<button class="yes" onclick="nextPage(3)">Next ❤️</button>
+</div>
 </div>
 
-<!-- PAGE 3 -->
 <div class="page" id="page3">
-    <div class="container">
-        <h1>Good Morning Betaa😘</h1>
-        <p>Gift open karo ❤️</p>
+<div class="container">
+<h1>Good Morning Betaa😘</h1>
+<p>Gift open karo ❤️</p>
 
-        <div class="gift-box" onclick="openGift()">🎁</div>
+<div class="gift-box" onclick="openGift()">🎁</div>
 
-        <div id="giftPhoto" class="hidden">
-            <img src="photo3.jpg">
-            <p class="typing" id="text3"></p>
-        </div>
-
-        <button class="yes" onclick="nextPage(4)">Next ❤️</button>
-    </div>
+<div id="giftPhoto" class="hidden">
+<img src="photo3.jpg">
+<p class="typing" id="text3"></p>
 </div>
 
-<!-- PAGE 4 -->
+<button class="yes" onclick="nextPage(4)">Next ❤️</button>
+</div>
+</div>
+
 <div class="page" id="page4">
-    <div class="container">
-        <h1>Will You Marry Me Betaa 💍❤️</h1>
-        <button class="yes" onclick="proposalYes()">Yes 💖</button>
-        <button class="no" id="noBtn">No 😡</button>
-    </div>
+<div class="container">
+<h1>Will You Marry Me Betaa 💍❤️</h1>
+<button class="yes" onclick="proposalYes()">Yes 💖</button>
+<button class="no" id="noBtn">No 😡</button>
+</div>
 </div>
 
-<!-- PAGE 5 -->
 <div class="page" id="page5">
-    <div class="container">
-        <h1>I Love You Forever ❤️</h1>
-        <p class="typing" id="text5"></p>
-        <h2>Mrs. Shagun Krishnater ❤️</h2>
-    </div>
+<div class="container">
+<h1>I Love You Forever ❤️</h1>
+<p class="typing" id="text5"></p>
+<h2>Mrs. Shagun Krishnater ❤️</h2>
+</div>
 </div>
 
 <script>
 
-/* MUSIC */
-document.body.addEventListener("click", () => {
-    document.getElementById("bgMusic").play();
-}, { once: true });
-
-/* HEARTS */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}
-setInterval(createHeart, 400);
-
-/* TYPING FUNCTION */
-function typeText(elementId, text, speed = 25) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-    el.innerHTML = "";
-    let i = 0;
-    function typing() {
-        if (i < text.length) {
-            el.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typing, speed);
-        }
-    }
-    typing();
-}
-
-/* TEXT CONTENT */
+/* TEXTS */
 const pageTexts = {
 
 1: `Betaa phle to yrr I really Love you😘😘 sachi Mera Beta aapke PA PA na aapne pyare se Bete se na bht pyar krte h and yrr sachi aapki yaad bhi bht aati h beta.
@@ -295,59 +257,82 @@ Sachi mera beta aapke bina kch ni h aapke janna ke paas.
 
 Aapke janna bss aapke h oll hmesha bss aapke hi rhe ge 😘😘😘.`
 };
+/* MUSIC */
+document.body.addEventListener("click",()=>{bgMusic.play()},{once:true});
 
-/* PAGE SWITCH */
-function nextPage(pageNumber) {
+/* HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},400);
 
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-    });
-
-    document.getElementById("page" + pageNumber).classList.add("active");
-
-    if(pageTexts[pageNumber]){
-        typeText("text"+pageNumber, pageTexts[pageNumber]);
-    }
+/* TYPE */
+function typeText(id,text,speed=25){
+let el=document.getElementById(id);
+if(!el) return;
+el.innerHTML="";
+let i=0;
+(function t(){
+if(i<text.length){
+el.innerHTML+=text.charAt(i);
+i++;
+setTimeout(t,speed);
+}
+})();
 }
 
-/* INITIAL TEXT */
-typeText("text1", pageTexts[1]);
+/* PAGE */
+function nextPage(n){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+n).classList.add("active");
+if(pageTexts[n]) typeText("text"+n,pageTexts[n]);
+}
 
-/* SAFE NO BUTTON */
-document.addEventListener("DOMContentLoaded", () => {
-    const noBtn = document.getElementById("noBtn");
-    if (noBtn) {
-        noBtn.addEventListener("mouseover", () => {
-            const x = Math.random() * (window.innerWidth - 120);
-            const y = Math.random() * (window.innerHeight - 60);
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
-        });
-    }
+/* INIT */
+typeText("text1",pageTexts[1]);
+
+/* SHAKE */
+function screenShake(){
+document.body.classList.add("shake");
+setTimeout(()=>document.body.classList.remove("shake"),500);
+}
+
+/* NO BUTTON */
+document.addEventListener("DOMContentLoaded",()=>{
+let b=document.getElementById("noBtn");
+if(b){
+b.addEventListener("mouseover",()=>{
+b.style.left=Math.random()*(window.innerWidth-120)+"px";
+b.style.top=Math.random()*(window.innerHeight-60)+"px";
+});
+}
 });
 
 /* GIFT */
-function openGift() {
-    document.getElementById("giftPhoto").classList.remove("hidden");
-    typeText("text3", pageTexts[3]);
+function openGift(){
+document.getElementById("giftPhoto").classList.remove("hidden");
+typeText("text3",pageTexts[3]);
 }
 
-/* KISS */
-function proposalYes() {
-    for (let i = 0; i < 25; i++) {
-        setTimeout(createKiss, i * 80);
-    }
-    setTimeout(() => nextPage(5), 1500);
+/* PROPOSAL */
+function proposalYes(){
+screenShake();
+for(let i=0;i<25;i++) setTimeout(createKiss,i*80);
+setTimeout(()=>nextPage(5),1500);
 }
 
-function createKiss() {
-    const kiss = document.createElement("div");
-    kiss.classList.add("kiss");
-    kiss.innerHTML = "😘";
-    kiss.style.left = Math.random() * 100 + "vw";
-    kiss.style.top = Math.random() * 100 + "vh";
-    document.body.appendChild(kiss);
-    setTimeout(() => kiss.remove(), 2000);
+function createKiss(){
+let k=document.createElement("div");
+k.className="kiss";
+k.innerHTML="😘";
+k.style.left=Math.random()*100+"vw";
+k.style.top=Math.random()*100+"vh";
+document.body.appendChild(k);
+setTimeout(()=>k.remove(),2000);
 }
 
 </script>
