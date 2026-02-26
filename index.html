@@ -13,6 +13,21 @@ body {
     overflow: hidden;
 }
 
+/* GLASS CONTAINER */
+.container {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 950px;
+    width: 92%;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
 /* HEARTS */
 .heart {
     position: fixed;
@@ -39,6 +54,20 @@ body {
     100% { transform: scale(2) translateY(-200px); opacity: 0; }
 }
 
+/* TYPING */
+.typing {
+    white-space: pre-line;
+    border-right: 3px solid #ff4d6d;
+    display: inline-block;
+    animation: blink 0.8s infinite;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
 .page {
     display: none;
     height: 100vh;
@@ -48,30 +77,6 @@ body {
 
 .active {
     display: flex;
-}
-
-/* UNIVERSAL BIG BOX — ALL PAGES */
-.container {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 950px;
-    width: 92%;
-    max-height: 88vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    text-align: center;
-}
-
-/* TEXT FIX ALL PAGES */
-p {
-    white-space: pre-line;
-    line-height: 1.7;
-    font-size: 17px;
-}
-
-h1 {
-    margin-top: 0;
 }
 
 button {
@@ -122,10 +127,7 @@ img {
 <div class="page active" id="page1">
     <div class="container">
         <h1>For My Princess ❤️</h1>
-        <p>
-Betaa phle to yrr I really Love you😘😘 sachi Mera Beta...
-(baaki text tu yaha full daal sakta hai)
-        </p>
+        <p class="typing" id="text1"></p>
         <button class="yes" onclick="nextPage(2)">Next ❤️</button>
     </div>
 </div>
@@ -134,10 +136,7 @@ Betaa phle to yrr I really Love you😘😘 sachi Mera Beta...
 <div class="page" id="page2">
     <div class="container">
         <h1>Mera chotu sa cutu sa Betaa ❤️</h1>
-        <p>
-Hyeeeeee mera pyara sa Betaa aa gya ji...
-(baaki full text yaha)
-        </p>
+        <p class="typing" id="text2"></p>
         <img src="photo1.jpg">
         <img src="photo2.jpg">
         <button class="yes" onclick="nextPage(3)">Next ❤️</button>
@@ -154,10 +153,7 @@ Hyeeeeee mera pyara sa Betaa aa gya ji...
 
         <div id="giftPhoto" class="hidden">
             <img src="photo3.jpg">
-            <p>
-Hyeeee uth gya ji mera pyara sa beta...
-(full text yaha)
-            </p>
+            <p class="typing" id="text3"></p>
         </div>
 
         <button class="yes" onclick="nextPage(4)">Next ❤️</button>
@@ -168,7 +164,6 @@ Hyeeee uth gya ji mera pyara sa beta...
 <div class="page" id="page4">
     <div class="container">
         <h1>Will You Marry Me Betaa 💍❤️</h1>
-
         <button class="yes" onclick="proposalYes()">Yes 💖</button>
         <button class="no" id="noBtn">No 😡</button>
     </div>
@@ -178,17 +173,14 @@ Hyeeee uth gya ji mera pyara sa beta...
 <div class="page" id="page5">
     <div class="container">
         <h1>I Love You Forever ❤️</h1>
-        <p>
-Hyeeeee mera pyara sa beta Thank you...
-(full text yaha)
-        </p>
+        <p class="typing" id="text5"></p>
         <h2>Mrs. Shagun Krishnater ❤️</h2>
     </div>
 </div>
 
 <script>
 
-/* MUSIC PLAY AFTER CLICK */
+/* MUSIC */
 document.body.addEventListener("click", () => {
     document.getElementById("bgMusic").play();
 }, { once: true });
@@ -200,10 +192,126 @@ function createHeart() {
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * 100 + "vw";
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 6000);
 }
 setInterval(createHeart, 400);
+
+/* TYPING FUNCTION */
+function typeText(elementId, text, speed = 25) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    el.innerHTML = "";
+    let i = 0;
+    function typing() {
+        if (i < text.length) {
+            el.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+}
+
+/* TEXT CONTENT */
+const pageTexts = {
+
+1: `Betaa phle to yrr I really Love you😘😘 sachi Mera Beta aapke PA PA na aapne pyare se Bete se na bht pyar krte h and yrr sachi aapki yaad bhi bht aati h beta.
+
+Beta sachi bss mnn kra rhta h ki mere pyare se bete ko na aapne kss ke chipka ke rakhe but yll sachi bht dul ho yrr aap prr na hr ttm bss yhi sochte rhte h aapke janna ki bss yrr kss ke aapne chipka ke rakhe.
+
+Mnn kyu na kre ji itna pyara sa beta h ji meraa. Sachi beta aap na schi bht sundr ho sachi meri GORGEOUS ANGEL ho yll aap meri CUTE LITTLE PRINCESS.
+
+Aap ko to yrr pta hi nhi ki kya ho yrr aap. Aap kyu sheesha ke samne kde hote ho — use kya pta yrr ki meri jaan h kon.
+
+Soii Betaa cheesy line alert 🫣
+Aaiven sheesha nu sawal paune chd de puch jatt to tu kinni sohni lagdi lagdii.
+
+Hehehe soii beta but yrr sachi aapne Janna ki aakho se to dekho yll khud ko kinna kimti heera ho yrr aap.
+
+Soiii beta yll aapko pta h na Aapke PAPA se na inni der ni ruka jata yll sachi bht mnn kll rha h yll mere pyare se bete ki laddi klne ka.
+
+Betaa aajoo na aapne Papa ki goddi me aake betho na beta pwwzzzzz....`,
+
+
+2: `Hyeeeeee mera pyara sa Betaa aa gya ji aapne PA PA ki goddi me hyeee kinna pyala pyala sa beta h ji aapne papa ka.
+
+Hyeee aajo ji phle to na yll aapne bete ko na kss ke ek dmm kss ke aapni chati ke lga le ji hyeee mera pyara sa cutu sa beta hoo ylll aap.
+
+Hyeee kya ho gya ji mere pyara sa beta inni gussi gussi hyee na ji aaise ni krte beta aapko pta h aapke janna na sachi bht pyar krte h aapne bete se.
+
+Soiii beta pwwzzz maff kldo na aapne papa ko hyeee mera pyara sa beta ho na aap shyana shyana beta aapne Papa ka.
+
+Hyeeee kinna pyara beta ho yll aap bss mera pyara sa beta meii mithi methi si imartiii hyeee kha ju ji aapko.
+
+Kinni mithi mithi imartiii h meli hyeee kinne cute cute cheeks h meiii imartiii ke ye lo ji inhe to special treatment chahi ji.
+
+Mwahhhhhhh ek oll soii mwahhhhhh 😘😘
+
+Hyeee soii beta ni mnn kll rha rukne ka 🥺 soii beta MWAHHHHHHHHHHH😘😘😘
+
+Hyee mela pyala pyala beta ho yll aap.
+
+Aajo ji aapne papa ki goddi me aake na aajo aapke papa na aapne hatho pe letai ge mele bete ko oll phl na mele pyale se bete ke balo me hath felege ge ji.
+
+Hyeee mela beta mele bete ko aaise aapne papa ki goddiii me sona aacha lagta h na ji.
+
+Hyeee aajo aapke papa na pyal se pith pe thap thap krke na phr sulai ge aapne pyale se bete ko.
+
+Hyeeeee kinna pyala lagta h yll mela pyara sa beta aaise sote hue.
+
+Hyeeee meli hi nazar na lgg je ji mere bete ko thu thu 🧿
+
+I LOVE YOU BETAAA 😘😘😘.`,
+
+
+3: `Hyeeee uth gya ji mera pyara sa beta kaisi nini aai ji mere pyare se bete ko aache se soya na mera beta.
+
+Hyeeee phle to ji yha aao beta aapne PAPA se je GOOD MORNING kissii Mwahhhhhhhhh😘😘.
+
+Hyeeeee hnji mera beta aab ye lo ji mele bete ke lie kch leke aai h aapke papa.
+
+Oyeee ye lo ji mere pyare se cutu se bete ke lie na sunan sunan sa gift laye h aapke papa I really love you beta 😘.
+
+Betaaa I'm really sorry beta mko pta h beta aap na merse bht pyar krte ho but me hr baar na yrr kch na kch glt krr hi deta hu.
+
+Beta aab ki baar bhi beta vhi kra please beta maaf krdo na aapne janna ko.
+
+Sachi beta aab se koi galti ni aapke janna sachi aapna best denge pura try kre ge beta.
+
+Please beta iss baar maff krdo Im really sorry beta sachi I really love you soo much beta I REALLY LOVE YOU SOOOO MUCH MERA BETA 😘😘😘.
+
+Betaa aapke PAPA bss aapke h bss aapne cutu se bete ke bss aapke orr hmesa bss aapke hi rhe ge beta.
+
+I'm really sorry beta please beta kll do na maff aapne janna ko 🥺🥺.`,
+
+
+5: `Hyeeeee mera pyara sa beta Thank you mera betaaa I really love you sooo much beta.
+
+Annnnnnn Mera pyara sa betaaa I really love you betaaa annnn meraa beta.
+
+Sachi beta Thank you yrr kaise bolu aapko thank you beta kis kis chiz ke lie bolu annnnnnnn but beta really thank you meii life me aane ke lie.
+
+Sachi mera beta aapke bina kch ni h aapke janna ke paas.
+
+Aapke janna bss aapke h oll hmesha bss aapke hi rhe ge 😘😘😘.`
+};
+
+/* PAGE SWITCH */
+function nextPage(pageNumber) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById("page" + pageNumber).classList.add("active");
+
+    if(pageTexts[pageNumber]){
+        typeText("text"+pageNumber, pageTexts[pageNumber]);
+    }
+}
+
+/* INITIAL TEXT */
+typeText("text1", pageTexts[1]);
 
 /* SAFE NO BUTTON */
 document.addEventListener("DOMContentLoaded", () => {
@@ -218,20 +326,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-/* PAGE SWITCH */
-function nextPage(pageNumber) {
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-    });
-    document.getElementById("page" + pageNumber).classList.add("active");
-}
-
 /* GIFT */
 function openGift() {
     document.getElementById("giftPhoto").classList.remove("hidden");
+    typeText("text3", pageTexts[3]);
 }
 
-/* KISS ANIMATION */
+/* KISS */
 function proposalYes() {
     for (let i = 0; i < 25; i++) {
         setTimeout(createKiss, i * 80);
@@ -246,7 +347,6 @@ function createKiss() {
     kiss.style.left = Math.random() * 100 + "vw";
     kiss.style.top = Math.random() * 100 + "vh";
     document.body.appendChild(kiss);
-
     setTimeout(() => kiss.remove(), 2000);
 }
 
