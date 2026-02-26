@@ -13,6 +13,49 @@ body {
     overflow: hidden;
 }
 
+/* START SCREEN */
+#startScreen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1s ease;
+}
+
+.startBox {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.startBox button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* HEART BURST */
+.burstHeart {
+    position: fixed;
+    font-size: 22px;
+    animation: burst 1s ease forwards;
+}
+
+@keyframes burst {
+    0% { transform: scale(0); opacity:1; }
+    100% { transform: translateY(-150px) scale(1.5); opacity:0; }
+}
+
 /* SCREEN SHAKE */
 @keyframes shake {
     0% { transform: translate(0,0); }
@@ -23,9 +66,7 @@ body {
     100% { transform: translate(0,0); }
 }
 
-.shake {
-    animation: shake 0.5s;
-}
+.shake { animation: shake 0.5s; }
 
 /* GLASS */
 .container {
@@ -41,7 +82,7 @@ body {
     text-align: center;
 }
 
-/* HEARTS */
+/* FLOAT HEARTS */
 .heart {
     position: fixed;
     bottom: -20px;
@@ -77,51 +118,37 @@ body {
     font-size: 17px;
 }
 
-@keyframes blink {
-    50% { border-color: transparent; }
-}
+@keyframes blink { 50% { border-color: transparent; } }
 
-.page {
-    display: none;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-}
+.page { display:none; height:100vh; justify-content:center; align-items:center; }
+.active { display:flex; }
 
-.active {
-    display: flex;
-}
+button { padding:15px 25px; font-size:18px; border:none; border-radius:10px; margin:10px; cursor:pointer; }
+.yes { background:#ff4d6d; color:white; }
+.no { background:gray; color:white; position:absolute; }
 
-button {
-    padding: 15px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    margin: 10px;
-    cursor: pointer;
-}
-
-.yes { background: #ff4d6d; color: white; }
-.no { background: gray; color: white; position: absolute; }
-
-img {
-    width: 220px;
-    border-radius: 15px;
-    margin: 10px;
-}
-
-.gift-box { font-size: 80px; cursor: pointer; }
-.hidden { display: none; }
+img { width:220px; border-radius:15px; margin:10px; }
+.gift-box { font-size:80px; cursor:pointer; }
+.hidden { display:none; }
 
 </style>
 </head>
 
 <body>
 
+<!-- START SCREEN -->
+<div id="startScreen">
+    <div class="startBox">
+        <h1>For Someone Special ❤️</h1>
+        <button onclick="startSite()">Tap to Open My Heart 💖</button>
+    </div>
+</div>
+
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- PAGE 1 -->
 <div class="page active" id="page1">
 <div class="container">
 <h1>For My Princess ❤️</h1>
@@ -130,6 +157,7 @@ img {
 </div>
 </div>
 
+<!-- PAGE 2 -->
 <div class="page" id="page2">
 <div class="container">
 <h1>Mera chotu sa cutu sa Betaa ❤️</h1>
@@ -140,22 +168,21 @@ img {
 </div>
 </div>
 
+<!-- PAGE 3 -->
 <div class="page" id="page3">
 <div class="container">
 <h1>Good Morning Betaa😘</h1>
 <p>Gift open karo ❤️</p>
-
 <div class="gift-box" onclick="openGift()">🎁</div>
-
 <div id="giftPhoto" class="hidden">
 <img src="photo3.jpg">
 <p class="typing" id="text3"></p>
 </div>
-
 <button class="yes" onclick="nextPage(4)">Next ❤️</button>
 </div>
 </div>
 
+<!-- PAGE 4 -->
 <div class="page" id="page4">
 <div class="container">
 <h1>Will You Marry Me Betaa 💍❤️</h1>
@@ -164,6 +191,7 @@ img {
 </div>
 </div>
 
+<!-- PAGE 5 -->
 <div class="page" id="page5">
 <div class="container">
 <h1>I Love You Forever ❤️</h1>
@@ -174,7 +202,59 @@ img {
 
 <script>
 
-/* TEXTS */
+/* START SITE */
+function startSite(){
+
+    let music = document.getElementById("bgMusic");
+    music.play();
+
+    heartBurst();
+
+    let screen = document.getElementById("startScreen");
+    screen.style.opacity = "0";
+
+    setTimeout(()=> screen.style.display="none",1000);
+}
+
+/* HEART BURST */
+function heartBurst(){
+    for(let i=0;i<25;i++){
+        let h=document.createElement("div");
+        h.className="burstHeart";
+        h.innerHTML="💖";
+        h.style.left=Math.random()*100+"vw";
+        h.style.top=Math.random()*100+"vh";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),1000);
+    }
+}
+
+/* FLOAT HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},400);
+
+/* TYPE */
+function typeText(id,text,speed=25){
+let el=document.getElementById(id);
+if(!el) return;
+el.innerHTML="";
+let i=0;
+(function t(){
+if(i<text.length){
+el.innerHTML+=text.charAt(i);
+i++;
+setTimeout(t,speed);
+}
+})();
+}
+
+/* TEXT */
 const pageTexts = {
 
 1: `Betaa phle to yrr I really Love you😘😘 sachi Mera Beta aapke PA PA na aapne pyare se Bete se na bht pyar krte h and yrr sachi aapki yaad bhi bht aati h beta.
@@ -257,34 +337,6 @@ Sachi mera beta aapke bina kch ni h aapke janna ke paas.
 
 Aapke janna bss aapke h oll hmesha bss aapke hi rhe ge 😘😘😘.`
 };
-/* MUSIC */
-document.body.addEventListener("click",()=>{bgMusic.play()},{once:true});
-
-/* HEARTS */
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤️";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},400);
-
-/* TYPE */
-function typeText(id,text,speed=25){
-let el=document.getElementById(id);
-if(!el) return;
-el.innerHTML="";
-let i=0;
-(function t(){
-if(i<text.length){
-el.innerHTML+=text.charAt(i);
-i++;
-setTimeout(t,speed);
-}
-})();
-}
-
 /* PAGE */
 function nextPage(n){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -292,7 +344,6 @@ document.getElementById("page"+n).classList.add("active");
 if(pageTexts[n]) typeText("text"+n,pageTexts[n]);
 }
 
-/* INIT */
 typeText("text1",pageTexts[1]);
 
 /* SHAKE */
