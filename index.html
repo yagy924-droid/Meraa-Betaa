@@ -52,12 +52,23 @@ body {
     display: flex;
 }
 
+/* BIGGER CONTAINER */
 .container {
     background: white;
-    padding: 30px;
+    padding: 40px;
     border-radius: 20px;
-    max-width: 700px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* TEXT FIX */
+p {
+    white-space: pre-line;
+    line-height: 1.7;
+    font-size: 17px;
 }
 
 button {
@@ -108,7 +119,24 @@ img {
 <div class="page active" id="page1">
     <div class="container">
         <h1>For My Princess ❤️</h1>
-        <p>Betaa phle to yrr I really Love you😘😘 ...</p>
+        <p>
+Betaa phle to yrr I really Love you😘😘 sachi Mera Beta aapke PA PA na aapne pyare se Bete se na bht pyar krte h and yrr sachi aapki yaad bhi bht aati h beta.  
+
+Beta sachi bss mnn kra rhta h ki mere pyare se bete ko na aapne kss ke chipka ke rakhe but yll sachi bht dul ho yrr aap prr na hr ttm bss yhi sochte rhte h aapke janna ki bss yrr kss ke aapne chipka ke rakhe.  
+
+Mnn kyu na kre ji itna pyara sa beta h ji meraa. Sachi beta aap na schi bht sundr ho sachi meri GORGEOUS ANGEL ho yll aap meri CUTE LITTLE PRINCESS.  
+
+Aap ko to yrr pta hi nhi ki kya ho yrr aap. Aap kyu sheesha ke samne kde hote ho — use kya pta yrr ki meri jaan h kon.  
+
+Soii Betaa cheesy line alert 🫣  
+Aaiven sheesha nu sawal paune chd de puch jatt to tu kinni sohni lagdi lagdii.  
+
+Hehehe soii beta but yrr sachi aapne Janna ki aakho se to dekho yll khud ko kinna kimti heera ho yrr aap.  
+
+Soiii beta yll aapko pta h na Aapke PAPA se na inni der ni ruka jata yll sachi bht mnn kll rha h yll mere pyare se bete ki laddi klne ka.  
+
+Betaa aajoo na aapne Papa ki goddi me aake betho na beta pwwzzzzz....
+        </p>
         <button class="yes" onclick="nextPage(2)">Next ❤️</button>
     </div>
 </div>
@@ -124,7 +152,7 @@ img {
     </div>
 </div>
 
-<!-- PAGE 3 GIFT -->
+<!-- PAGE 3 -->
 <div class="page" id="page3">
     <div class="container">
         <h1>Good Morning Betaa😘</h1>
@@ -141,7 +169,7 @@ img {
     </div>
 </div>
 
-<!-- PAGE 4 PROPOSAL -->
+<!-- PAGE 4 -->
 <div class="page" id="page4">
     <div class="container">
         <h1>Will You Marry Me Betaa 💍❤️</h1>
@@ -151,29 +179,28 @@ img {
     </div>
 </div>
 
-<!-- FINAL PAGE -->
+<!-- PAGE 5 -->
 <div class="page" id="page5">
     <div class="container">
         <h1>I Love You Forever ❤️</h1>
-        <p>Hyeeeee mera pyara sa beta Thank you mera betaaa ...</p>
+        <p>Hyeeeee mera pyara sa beta Thank you mera betaaa I really love you sooo much...</p>
         <h2>Mrs. Shagun Krishnater ❤️</h2>
     </div>
 </div>
 
 <script>
 
-/* MUSIC PLAY ON FIRST CLICK */
+/* MUSIC PLAY AFTER CLICK */
 document.body.addEventListener("click", () => {
     document.getElementById("bgMusic").play();
 }, { once: true });
 
-/* HEARTS CREATE */
+/* HEARTS */
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 20 + 10 + "px";
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 6000);
@@ -206,7 +233,7 @@ function openGift() {
     document.getElementById("giftPhoto").classList.remove("hidden");
 }
 
-/* KISS EMOJI YES CLICK */
+/* KISS ANIMATION */
 function proposalYes() {
     for (let i = 0; i < 25; i++) {
         setTimeout(createKiss, i * 80);
