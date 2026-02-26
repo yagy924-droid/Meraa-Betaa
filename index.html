@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    overflow: hidden;
+}
+
+/* MOVING HEARTS */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    color: red;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* KISS EMOJI */
+.kiss {
+    position: fixed;
+    font-size: 30px;
+    animation: kissFloat 2s ease-out forwards;
+}
+
+@keyframes kissFloat {
+    0% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(2) translateY(-200px); opacity: 0; }
+}
+
+.page {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.active {
+    display: flex;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 700px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+.no {
+    background: gray;
+    color: white;
+    position: absolute;
+}
+
+img {
+    width: 220px;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.gift-box {
+    font-size: 80px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+    <div class="container">
+        <h1>For My Princess ❤️</h1>
+        <p>Betaa phle to yrr I really Love you😘😘 ...</p>
+        <button class="yes" onclick="nextPage(2)">Next ❤️</button>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <div class="container">
+        <h1>Mera chotu sa cutu sa Betaa ❤️</h1>
+        <p>Hyeeeeee mera pyara sa Betaa ...</p>
+        <img src="photo1.jpg">
+        <img src="photo2.jpg">
+        <button class="yes" onclick="nextPage(3)">Next ❤️</button>
+    </div>
+</div>
+
+<!-- PAGE 3 GIFT -->
+<div class="page" id="page3">
+    <div class="container">
+        <h1>Good Morning Betaa😘</h1>
+        <p>Gift open karo ❤️</p>
+
+        <div class="gift-box" onclick="openGift()">🎁</div>
+
+        <div id="giftPhoto" class="hidden">
+            <img src="photo3.jpg">
+            <p>Hyeeee uth gya ji mera pyara sa beta ...</p>
+        </div>
+
+        <button class="yes" onclick="nextPage(4)">Next ❤️</button>
+    </div>
+</div>
+
+<!-- PAGE 4 PROPOSAL -->
+<div class="page" id="page4">
+    <div class="container">
+        <h1>Will You Marry Me Betaa 💍❤️</h1>
+
+        <button class="yes" onclick="proposalYes()">Yes 💖</button>
+        <button class="no" id="noBtn">No 😡</button>
+    </div>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="page5">
+    <div class="container">
+        <h1>I Love You Forever ❤️</h1>
+        <p>Hyeeeee mera pyara sa beta Thank you mera betaaa ...</p>
+        <h2>Mrs. Shagun Krishnater ❤️</h2>
+    </div>
+</div>
+
+<script>
+
+/* MUSIC PLAY ON FIRST CLICK */
+document.body.addEventListener("click", () => {
+    document.getElementById("bgMusic").play();
+}, { once: true });
+
+/* HEARTS CREATE */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 10 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 400);
+
+/* SAFE NO BUTTON */
+document.addEventListener("DOMContentLoaded", () => {
+    const noBtn = document.getElementById("noBtn");
+    if (noBtn) {
+        noBtn.addEventListener("mouseover", () => {
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 60);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+    }
+});
+
+/* PAGE SWITCH */
+function nextPage(pageNumber) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+    document.getElementById("page" + pageNumber).classList.add("active");
+}
+
+/* GIFT */
+function openGift() {
+    document.getElementById("giftPhoto").classList.remove("hidden");
+}
+
+/* KISS EMOJI YES CLICK */
+function proposalYes() {
+    for (let i = 0; i < 25; i++) {
+        setTimeout(createKiss, i * 80);
+    }
+    setTimeout(() => nextPage(5), 1500);
+}
+
+function createKiss() {
+    const kiss = document.createElement("div");
+    kiss.classList.add("kiss");
+    kiss.innerHTML = "😘";
+    kiss.style.left = Math.random() * 100 + "vw";
+    kiss.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(kiss);
+
+    setTimeout(() => kiss.remove(), 2000);
+}
+
+</script>
+
+</body>
+</html>
